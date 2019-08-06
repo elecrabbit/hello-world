@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jquery-Test</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        ul li{
+            float: left;
+            margin-right: 10px;
+            list-style: none;
+        }
+        .tooltip img{
+            width: 150px;
+            height: 150px;
+        }
+        #tooltip img{
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Jquery实现的鼠标滑过显示预览大图效果</h1>
+    <ul>
+        <li><a href="header01.jpg" class="tooltip" title="小狗1"><img src="header01.jpg" alt="小狗1"></a></li>
+        <li><a href="header02.jpg" class="tooltip" title="小狗2"><img src="header02.jpg" alt="小狗2"></a></li>
+        <li><a href="header03.jpg" class="tooltip" title="小狗3"><img src="header03.jpg" alt="小狗3"></a></li>
+        <li><a href="header04.jpg" class="tooltip" title="小狗4"><img src="header04.jpg" alt="小狗4"></a></li>
+    </ul>
+    <script>
+        $(function(){
+            var x=10;
+            var y=20;
+            $("a.tooltip").mouseover(function(e){
+                this.myTitle = this.title;
+                this.title="";
+                var imgTitle=this.myTitle?"<br/>"+this.myTitle:"";
+                var tooltip = "<div id='tooltip'><img src='"+this.href+"' alt='产品预览图'/>"+imgTitle+"</div>";
+                $("body").append(tooltip);
+                $("#tooltip").css({
+                    "position":"absolute",
+                    "top":(e.pageY+y)+"px",
+                    "left":(e.pageX+x)+"px"
+                }).show("slow");
+            }).mousemove(function(e){
+                $("#tooltip").css({
+                    "position":"absolute",
+                    "top":(e.pageY+y)+"px",
+                    "left":(e.pageX+x)+"px"
+                });
+            }).mouseout(function(){
+                this.title=this.myTitle;
+                $("#tooltip").remove();
+            });
+        })
+    </script>
+</body>
+</html>
